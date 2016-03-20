@@ -1,0 +1,67 @@
+<extend name="Public:decorator"/>
+<block name="title">商品库存管理-商品管理</block>
+<block name="main">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 col-xs-12 col-sm-6">商品列表</div>
+                    <div class="col-md-6 col-lg-6 col-xs-12 col-sm-6 text-right">
+                        <a id="create" href="{:U('Goods/manage')}">新增</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.col-lg-12 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-responsive table-bordered table-hover" id="dataTables-user">
+                <thead>
+                <tr>
+                    <th>商品名称</th>
+                    <th>商品价格</th>
+                    <th>库存</th>
+                    <th>商品类别</th>
+                    <th>净含量</th>
+                    <th>产地</th>
+                    <th>品牌</th>
+                    <th>保质期（年）</th>
+                    <th class="text-center">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <volist name="list" id="item">
+                    <tr>
+                        <td>{$item['goods_name']}</td>
+                        <td>{$item['goods_price']}</td>
+                        <td>{$item['goods_stock']}</td>
+                        <td>{$goodsTypeList[$item['goods_type_id']]}</td>
+                        <td>{$item['goods_net_weight']}</td>
+                        <td>{$goodsHomeList[$item['goods_home_id']]}</td>
+                        <td>{$goodsBrandList[$item['goods_brand_id']]}</td>
+                        <td>{$item['goods_expiration_date']}</td>
+                        <td class="text-center">
+                            <a href="{:U('Goods/photo?home_id='.$item['goods_id'])}">图册</a>
+                            <a href="{:U('Goods/view?goods_id='.$item['goods_id'])}">详情</a>
+                            <a href="{:U('Goods/edit?goods_id='.$item['goods_id'])}">编辑</a>
+                            <a href="{:U('Goods/delete?goods_id='.$item['goods_id'])}">删除</a>
+                        </td>
+                    </tr>
+                </volist>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="9">
+                        {$page}
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    </div>
+</block>
+
+<block name="script">
+</block>

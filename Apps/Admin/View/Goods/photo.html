@@ -1,0 +1,64 @@
+<extend name="Public:decorator"/>
+<block name="title">商品详情-商品库存管理-商品管理</block>
+<block name="main">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="page-header">
+                <div class="row">
+                    <label class="col-lg-6 col-md-6"><a href="{:U('Photo/upload?root_id='.$root_id)}">上传图片</a></label>
+                    <label class="col-lg-6 col-md-6 text-right"><a href="{:U('Goods/browse')}">返回</a></label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <volist name="photos" id="item">
+                <div class=" col-xs-6 col-sm-4 col-md-3" id="photo_{$item.photo_id}">
+                    <div class="thumbnail file-preview-frame">
+                        <?php $config = C('UPLOAD_CONFIG');?>
+                        <img src="__ROOT__/{$config['thumbRootPath']}{$item.thumbnail_path}" alt="{$item.photo_name}"
+                             class="img-thumbnail">
+                        <div class="file-thumbnail-footer">
+                            <div class="file-footer-caption " title="{$item.photo_name}">{$item.photo_name}</div>
+                            <div class="file-actions">
+                                <div class="file-footer-buttons">
+                                    <button type="button" class="btn-remove kv-file-remove btn btn-xs btn-default" data-id="{$item.photo_id}"
+                                            title="删除图片"><i class="fa fa-trash text-danger"></i>
+                                    </button>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </volist>
+        </div>
+    </div>
+    <link href="__PUBLIC__/bower_components/bootstrap-fileinput/css/fileinput.min.css" media="all" rel="stylesheet"
+          type="text/css"/>
+    <style>
+        .file-uploading{
+            top:2px!important;
+            display: inline-block;
+        }
+    </style>
+</block>
+<block name="script">
+    <script type="text/javascript">
+        $('.btn-remove').click(function () {
+            $(this).children('i').addClass('file-uploading');
+            var photoId = $(this).attr('data-id');
+            $.ajax({
+                url:'{:U("Photo/delete")}',
+                data:{'photo_id':photoId},
+                type:'post',
+                success:function(data){
+                    if(data){
+                        $('#photo_'+photoId).remove();
+                    }
+                }
+            })
+        })
+    </script>
+</block>

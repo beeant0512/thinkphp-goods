@@ -1,0 +1,59 @@
+<extend name="Public:decorator"/>
+<block name="title">图片上传</block>
+<block name="main">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="page-header">
+                <div class="row">
+                <label class="col-lg-6 col-md-6">图片上传</label>
+                <label class="col-lg-6 col-md-6 text-right"><a href="{:U('Goods/photo?root_id='.$root_id)}">返回</a></label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <form action="__URL__/upload" method="post" enctype="multipart/form-data" class="form-horizontal"
+                  role="form">
+                <div class="form-group">
+                    <label class="sr-only">文件</label>
+                    <input id="select-file" type="file" multiple type="file" class="file-loading" name="photo"
+                           placeholder="请选择上传的文件">
+                </div>
+            </form>
+        </div>
+    </div>
+    <link href="__PUBLIC__/bower_components/bootstrap-fileinput/css/fileinput.min.css" media="all" rel="stylesheet"
+          type="text/css"/>
+</block>
+
+<block name="script">
+    <?php $config = C('UPLOAD_CONFIG');?>
+
+    <!-- canvas-to-blob.min.js is only needed if you wish to resize images before upload.
+         This must be loaded before fileinput.min.js -->
+    <script src="__PUBLIC__/bower_components/bootstrap-fileinput/js/plugins/canvas-to-blob.min.js"
+            type="text/javascript"></script>
+    <script src="__PUBLIC__/bower_components/bootstrap-fileinput/js/fileinput.min.js" type="text/javascript"></script>
+    <!-- optionally if you need translation for your language then include
+        locale file as mentioned below -->
+    <script src="__PUBLIC__/bower_components/bootstrap-fileinput/js/fileinput_locale_zh.js"></script>
+
+    <script type="text/javascript">
+        // initialize with defaults
+        $(document).on('ready', function () {
+            $("#select-file").fileinput({
+                maxFileCount: {$config["maxFileCount"]},
+                language: "zh",
+                uploadUrl: "{:U('Photo/upload?root_id='.$root_id)}",
+                allowedFileExtensions: {$config["allowedFileExtensions"]},
+                resizePreference: 'height',
+            }).on('filepreupload', function () {
+                $('#kv-success-box').html('');
+            }).on('fileuploaded', function (event, data) {
+                $('#kv-success-box').append(data.response.link);
+                $('#kv-success-modal').modal('show');
+            });
+        })
+    </script>
+</block>
