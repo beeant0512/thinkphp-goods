@@ -42,7 +42,7 @@
                         <td>{$goodsBrandList[$item['goods_brand_id']]}</td>
                         <td>{$item['goods_expiration_date']}</td>
                         <td class="text-center">
-                            <a href="{:U('Goods/photo?home_id='.$item['goods_id'])}">图册</a>
+                            <a href="{:U('Goods/photo?root_id='.$item['goods_id'])}">图册</a>
                             <a href="{:U('Goods/view?goods_id='.$item['goods_id'])}">详情</a>
                             <a href="{:U('Goods/edit?goods_id='.$item['goods_id'])}">编辑</a>
                             <a href="{:U('Goods/delete?goods_id='.$item['goods_id'])}">删除</a>

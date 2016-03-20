@@ -98,7 +98,7 @@ class GoodsController extends BaseGoodsController
     {
         $photo = M('photos');
         $condition = array();
-        $rootId = $_GET['root_id'];
+        $rootId = $_REQUEST['root_id'];
         $condition['root_id'] = $rootId;
         $photos = $photo->where($condition)->select();
         $this->assign('photos', $photos);

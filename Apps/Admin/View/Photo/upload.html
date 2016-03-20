@@ -13,7 +13,7 @@
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <form action="__URL__/upload" method="post" enctype="multipart/form-data" class="form-horizontal"
+            <form action="{:U('Photo/upload?root_id='.$root_id)}" method="post" enctype="multipart/form-data" class="form-horizontal"
                   role="form">
                 <div class="form-group">
                     <label class="sr-only">文件</label>
